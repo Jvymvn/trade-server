@@ -13,6 +13,7 @@ const TradeTemp = trade => ({
     image2: xss(trade.image2),
     date_created: trade.date_created,
     active: trade.active,
+    user_id: trade.user_id,
 })
 
 tradesRouter
