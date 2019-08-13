@@ -92,22 +92,4 @@ async function checkTradeExists(req, res, next) {
     }
 }
 
-//     .all((req, res) => {
-//     TradesService.getById(
-//         req.app.get('db'),
-//         req.params.trade_id
-//     )
-//         .then(trade => {
-//             console.log(req.params.trade_id)
-//             if (!trade) {
-//                 return res.status(404).json({
-//                     error: { message: 'Trade does not exist' }
-//                 })
-//             }
-//             res.trade = trade
-//             next()
-//         })
-//         .catch(next)
-// })
-
 module.exports = tradesRouter
