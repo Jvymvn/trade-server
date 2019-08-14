@@ -1,28 +1,10 @@
 const TradesService = require('../src/trades/trades-service')
 const knex = require('knex')
+const { makeTradesArray } = require('./trades-fixtures')
 
 describe('Trades service object', function () {
     let db
-    let testTrades = [
-        {
-            id: 1,
-            title: 'First test trade!',
-            image1: 'http://placekitten.com/200/300',
-            image2: 'http://placekitten.com/200/300',
-        },
-        {
-            id: 2,
-            title: 'Second test trade!',
-            image1: 'http://placekitten.com/200/300',
-            image2: 'http://placekitten.com/200/300',
-        },
-        {
-            id: 3,
-            title: 'Third test trade!',
-            image1: 'http://placekitten.com/200/300',
-            image2: 'http://placekitten.com/200/300',
-        },
-    ]
+    let testTrades = makeTradesArray()
 
     before('make knex instance', () => {
         db = knex({
@@ -61,6 +43,7 @@ describe('Trades service object', function () {
                         title: thirdTrade.title,
                         image1: thirdTrade.image1,
                         image2: thirdTrade.image2,
+                        user_id: null
                     })
                 })
         })
@@ -71,6 +54,7 @@ describe('Trades service object', function () {
                 title: 'updated title',
                 image1: 'updated image',
                 image2: 'updated image',
+                user_id: null
             }
             const originalTrade = testTrades[idOfTradeToUpdate - 1]
             return TradesService.updateTrade(db, idOfTradeToUpdate, newTradeData)
@@ -98,6 +82,7 @@ describe('Trades service object', function () {
                 title: 'Test new title',
                 image1: 'Test new Image',
                 image2: 'Test new Image',
+                user_id: null
             }
             return TradesService.insertTrade(db, newTrade)
                 .then(actual => {
@@ -106,6 +91,7 @@ describe('Trades service object', function () {
                         title: newTrade.title,
                         image1: newTrade.image1,
                         image2: newTrade.image2,
+                        user_id: null
                     })
                 })
         })
