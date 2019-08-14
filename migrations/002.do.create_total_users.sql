@@ -7,6 +7,8 @@ CREATE TABLE users (
     date_modified TIMESTAMP
 );
 
+DROP TYPE IF EXISTS category;
+
 CREATE TYPE category AS ENUM (
     'Electronics',
     'Furniture',

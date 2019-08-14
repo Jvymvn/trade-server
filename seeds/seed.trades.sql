@@ -1,7 +1,6 @@
 BEGIN;
 
 TRUNCATE
-    comments,
     users,
     trades
     RESTART IDENTITY CASCADE;

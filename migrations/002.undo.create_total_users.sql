@@ -1,4 +1,8 @@
 ALTER TABLE trades
     DROP COLUMN IF EXISTS user_id;
 
+ALTER TABLE trades
+    DROP COLUMN IF EXISTS claim_user;
+
+DROP TABLE IF EXISTS users;
 DROP TYPE IF EXISTS users;

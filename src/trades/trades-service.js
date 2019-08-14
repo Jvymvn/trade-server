@@ -1,10 +1,16 @@
 //CRUD
 const TradeService = {
     getAllTrades(knex) {
-        return knex.select('*').from('trades')
+        return knex
+            .select('*')
+            .from('trades')
     },
     getById(knex, id) {
-        return knex.from('trades').select('*').where('id', id).first()
+        return knex
+            .from('trades')
+            .select('*')
+            .where('id', id)
+            .first()
     },
     insertTrade(knex, newTrade) {
         return knex
@@ -24,7 +30,7 @@ const TradeService = {
         return knex('trades')
             .where({ id })
             .update(newTradeFeilds)
-    }
+    },
 }
 
 module.exports = TradeService
