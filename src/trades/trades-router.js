@@ -14,6 +14,7 @@ const TradeTemp = trade => ({
     date_created: trade.date_created,
     active: trade.active,
     user_id: trade.user_id,
+    claim_user: trade.claim_user,
 })
 
 tradesRouter
@@ -30,7 +31,6 @@ tradesRouter
         const knexInstance = req.app.get('db')
         const { title, image1, image2, user_id } = req.body
         const newTrade = { title, image1, image2, user_id }
-        console.log(req.body)
 
         TradesService.insertTrade(knexInstance, newTrade)
             .then(trade => {
