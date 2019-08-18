@@ -1,26 +1,157 @@
-# Express Boilerplate!
+# Things 2 Trade Server
 
-This is a boilerplate project used for starting new projects!
+This is a repo for the Things 2 Trade App
 
-## Set up
+## Prerequisites
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+This app requires Node.js v10.0+ to run.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## Installing
+Install the dependencies and devDependencies and start the server.
 
-## Scripts
+```
+npm install
+```
 
-Start the application `npm start`
+### User
 
-Start nodemon for the application `npm run dev`
+```js
+{
+  user_name: {
+    type: String,
+    required: True,
+    Unique: True
+  },
+  Password: {
+    type: String,
+    required: True
+  },
+    full_name: String,
+    required: True
+}
+```
 
-Run the tests `npm test`
+### Trades
 
-## Deploying
+```
+{
+  Title: {
+    type: String,
+    required: True,
+  },
+  image1 & image2: {
+    type: Url,
+    required: True,
+  }
+  active: True
+}
+```
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+## Api Overview
+
+```
+/api
+.
+├── /auth
+│   └── POST
+│       ├── /login
+│       └── /refresh
+├── /users
+│   └── POST
+│       └── /
+├── /Trades
+│   ├── POST
+│   └── GET
+│       └── /
+```
+
+### POST `/api/auth/login`
+
+```js
+// req.body
+{
+  username: String,
+  password: String
+}
+
+// res.body
+{
+  authToken: String
+}
+```
+
+### POST `/api/auth/refresh`
+
+```js
+// req.header
+Authorization: Bearer ${token}
+
+// res.body
+{
+  authToken: ${token}
+}
+```
+
+### POST `/api/users/`
+
+```js
+// req.body
+{
+  username: String,
+  password: String
+}
+
+// res.body
+{
+  username: String,
+  id: user_id
+}
+```
+
+### POST `/api/trades`
+
+```js
+// req.header
+Authorization: Bearer ${token}
+// req.body
+{
+  title: [string],
+  image1: [string/url],
+  image2: [string/url]
+}
+
+//res.body
+{
+  id: user_id
+  title: String,
+  image1: Url/String
+  Image2: Url/String
+}
+```
+
+### GET `/api/trades`
+
+```js
+//req.header
+Authorization: Bearer ${token}
+
+//res.body
+{
+  id: trade_id
+  title: String,
+  image1: Url/String,
+  image2: Url/String,
+  Active: Boolean
+}
+```
+
+## Technology Stacks
+* [Node](https://nodejs.org/en/) - Run-time environment
+* [Express](https://expressjs.com/) - Web application framework
+* [JWT](https://jwt.io/) - Authentication
+* [Mocha](https://mochajs.org/) - Testing 
+* [Chai](https://www.chaijs.com/) - Testing
+
+## Authors
+
+* **Jordon Carter** - *Full Stack* - [Jvymvn](https://github.com/Jvymvn)
