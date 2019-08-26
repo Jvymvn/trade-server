@@ -11,16 +11,13 @@ usersRouter
 
         for (const field of ['full_name', 'user_name', 'password'])
             if (!req.body[field])
-                return res.status(400).json({
+                return res.status(500).json({
                     error: `Missing '${field}' in request body`
                 })
-
-        // TODO: check user_name doesn't start with spaces
-
-        const passwordError = UsersService.validatePassword(password)
-
-        if (passwordError)
-            return res.status(400).json({ error: passwordError })
+        if (req.body['user_name'].startsWith(' '))
+            return res.status(500).json({
+                error: `Username cannot start with spaces`
+            })
 
         UsersService.hasUserWithUserName(
             req.app.get('db'),
@@ -28,7 +25,7 @@ usersRouter
         )
             .then(hasUserWithUserName => {
                 if (hasUserWithUserName)
-                    return res.status(400).json({ error: `Username already taken` })
+                    return res.status(500).json({ error: `Username already taken` })
 
                 return UsersService.hashPassword(password)
                     .then(hashedPassword => {

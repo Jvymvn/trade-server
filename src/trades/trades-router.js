@@ -19,7 +19,7 @@ const TradeTemp = trade => ({
 
 tradesRouter
     .route('/')
-    .all(requireAuth)
+    // .all(requireAuth)
     .get((req, res, next) => {
         TradesService.getAllTrades(req.app.get('db'))
             .then(trades => {
