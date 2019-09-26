@@ -146,11 +146,12 @@ Authorization: Bearer ${token}
 ```
 
 ## Technology Stacks
-* [Node](https://nodejs.org/en/) - Run-time environment
-* [Express](https://expressjs.com/) - Web application framework
-* [JWT](https://jwt.io/) - Authentication
-* [Mocha](https://mochajs.org/) - Testing 
-* [Chai](https://www.chaijs.com/) - Testing
+* [Node](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [JWT](https://jwt.io/)
+* [Mocha](https://mochajs.org/) 
+* [Chai](https://www.chaijs.com/)
+* [PostgreSQL](https://www.postgresql.org)
 
 ## Authors
 
