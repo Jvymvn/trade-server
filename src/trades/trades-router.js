@@ -3,7 +3,7 @@ const TradesService = require('./trades-service');
 const tradesRouter = express.Router();
 const { requireAuth } = require('../middlewear/jwt-auth');
 const xss = require('xss');
-const path = require('path');
+// const path = require('path');
 const jsonParser = express.json();
 
 const TradeTemp = trade => ({
@@ -28,18 +28,26 @@ tradesRouter
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const knexInstance = req.app.get('db')
-        const { title, image1, image2, user_id } = req.body
-        const newTrade = { title, image1, image2, user_id }
+        const knexInstance = req.app.get('db');
+        const { title, image1, image2, user_id } = req.body;
+        const newTrade = { title, image1, image2, user_id };
 
-        TradesService.insertTrade(knexInstance, newTrade)
+        for(const [key, value] of Object.entries(newTrade)){
+            if(!value)
+            return res.status(400).json({
+                error: `Missing '${key}' in request body`
+            });
+        }
+
+        const tradePost = TradeTemp(newTrade);
+
+        TradesService.insertTrade(knexInstance, tradePost)
             .then(trade => {
                 res
                     .status(201)
-                    .location(path.posix.join(req.originalUrl, `/${trade.id}`))
-                    .json(TradeTemp(trade))
+                    .json(trade)
             })
-            .catch(next)
+            .catch(next);
     })
 
 tradesRouter
