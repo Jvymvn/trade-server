@@ -48,7 +48,7 @@ tradesRouter
                     .json(trade)
             })
             .catch(next);
-    })
+    });
 
 tradesRouter
     .route('/:trade_id')
@@ -64,7 +64,7 @@ tradesRouter
             .then(row => {
                 res.status(204).end();
             })
-            .catch(next)
+            .catch(next);
     })
     .patch(jsonParser, (req, res, next) => {
         const { active, claim_user } = req.body;
