@@ -48,6 +48,23 @@ tradesRouter
                     .json(trade)
             })
             .catch(next);
+    })
+    .delete(jsonParser, async (req, res, next) => {
+            try{
+            const {tradeId} = req.body;
+            //delete ride by id
+            await TradesService.deleteTrade(
+                req.app.get('db'),
+                tradeId
+            )
+            .then(rows => {
+                res.status(204).end()
+            })
+        }
+        catch(err){
+            next(err);
+        }
+            
     });
 
 tradesRouter
@@ -55,16 +72,6 @@ tradesRouter
     .all(checkTradeExists)
     .get((req, res) => {
         res.send(TradeTemp(res.trade))
-    })
-    .delete((req, res, next) => {
-        TradesService.deleteTrade(
-            req.app.get('db'),
-            req.params.trade_id
-        )
-            .then(row => {
-                res.status(204).end();
-            })
-            .catch(next);
     })
     .patch(jsonParser, (req, res, next) => {
         const { active, claim_user } = req.body;
