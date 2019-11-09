@@ -57,7 +57,7 @@ tradesRouter
                 req.app.get('db'),
                 tradeId
             )
-            .then(rows => {
+            .then(() => {
                 res.status(204).end()
             })
         }
